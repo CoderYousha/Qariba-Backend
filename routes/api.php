@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AboutusController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,5 +52,19 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
         Route::post('/', 'store');
         Route::post('/{client}', 'update');
         Route::delete('/{client}', 'destroy');
+    });
+});
+
+Route::controller(AboutusController::class)->prefix('aboutus')->group(function (){
+    Route::get('/', 'show');
+    Route::middleware('check-admin')->group(function (){
+        Route::post('/', 'setAboutus');
+    });
+});
+
+Route::controller(ContactController::class)->prefix('contacts')->group(function (){
+    Route::get('/', 'show');
+    Route::middleware('check-admin')->group(function (){
+        Route::post('/', 'setContacts');
     });
 });
