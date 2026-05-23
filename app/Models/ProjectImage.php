@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceCategory extends Model
+class ProjectImage extends Model
 {
     use HasFactory;
 
-    protected $table = 'service_categories';
+    protected $table = 'project_images';
     protected $fillable = [
-        'service_id',
-        'name',
+        'project_id',
+        'image',
+        'sort_order',
     ];
 }

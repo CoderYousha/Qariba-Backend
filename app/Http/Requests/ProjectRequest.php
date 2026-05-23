@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Override;
+
+class ProjectRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'category_id' => 'required|exists:categories,id',
+            'title' => 'required',
+            'description' => 'required',
+            'cover_image' => 'required|image',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'category_id.required' => 'الصنف مطلوب',
+            'category_id.exists' => 'الصنف غير متاح',
+            'title.requried' => 'حقل العنوان مطلوب',
+            'description.required' => 'خقل الوصف مطلوب',
+            'cover_image.requried' => 'صورة الغلاف مطلوبة',
+            'cover_image.image' => 'صورة الغلاف غير صالحة',
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = [];
+
+        foreach ($validator->errors()->all() as $error) {
+            $errors[] = $error;
+        }
+
+        throw new HttpResponseException(
+            response()->json([
+                'status' => false,
+                'errors' => $errors
+            ], 422)
+        );
+    }
+}
