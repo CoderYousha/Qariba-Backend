@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('password')->nullable();
             $table->string('code');
+            $table->timestamp('expiry_date');
+            
             $table->timestamps();
         });
     }

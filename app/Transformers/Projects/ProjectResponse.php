@@ -16,6 +16,7 @@ class ProjectResponse
                 'cover_image' => $project->cover_image,
                 'images' => $project->images,
                 'videos' => $project->videos,
+                'category' => $project->category,
             ]
         ];
 

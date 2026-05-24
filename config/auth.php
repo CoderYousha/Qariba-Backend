@@ -68,6 +68,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'verification' => [
+            'driver' => 'sanctum',
+            'provider' => 'verifications',
+        ],
+
+        'reset-password' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
 
         // 'users' => [
         //     'driver' => 'database',

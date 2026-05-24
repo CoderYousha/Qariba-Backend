@@ -45,7 +45,7 @@ class BannerService
 
     public function getBanners()
     {
-        $banners = Banner::paginate(10);
+        $banners = Banner::orderBy('desc')->paginate(10);
 
         return success(BannersResponse::format($banners), 'عرض الإعلانات');
     }
