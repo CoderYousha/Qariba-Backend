@@ -34,7 +34,7 @@ class BannerController extends Controller
             $rules
         )->validate();
 
-        return $this->bannerService->updateBanner($banner, $bannerRequest);
+        return $this->bannerService->updateBanner($banner, $bannerRequest->all());
     }
     
     //Delete Banner Function

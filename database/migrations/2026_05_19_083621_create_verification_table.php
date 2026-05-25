@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email');
             $table->string('password')->nullable();
+            $table->string('role')->nullable();
             $table->string('code');
             $table->timestamp('expiry_date');
             

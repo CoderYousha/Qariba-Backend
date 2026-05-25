@@ -12,7 +12,7 @@ class BannerService
     public function createBanner($data)
     {
         if ($data['image']) {
-            $data['image'] = 'storage/' . uploadImage($data['image'], 'BannersImages');
+            $data['image'] = uploadImage($data['image'], 'BannersImages');
         }
         $banner = Banner::create($data);
 
@@ -25,7 +25,7 @@ class BannerService
             if (File::exists($banner->image)) {
                 File::delete($banner->image);
             }
-            $data['image'] = 'storage/' . uploadImage($data['image'], 'BannersImages');
+            $data['image'] = uploadImage($data['image'], 'BannersImages');
         }
 
         $banner->update($data);
@@ -45,7 +45,7 @@ class BannerService
 
     public function getBanners()
     {
-        $banners = Banner::orderBy('desc')->paginate(10);
+        $banners = Banner::orderBy('created_at', 'desc')->paginate(10);
 
         return success(BannersResponse::format($banners), 'عرض الإعلانات');
     }

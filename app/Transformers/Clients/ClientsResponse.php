@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Transformers\Banners;
+namespace App\Transformers\Clients;
 
 use App\Transformers\Pagination\PaginationResponse;
 use Illuminate\Support\Facades\Auth;

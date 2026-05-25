@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Config;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        $contacts = ['facebook', 'tiktok', 'youtube', 'instagram'];
+
         User::create([
             'full_name' => 'Admin',
             'phone' => '0954141231',
@@ -24,5 +27,11 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'role' => 'admin',
         ]);
+
+        foreach($contacts as $contact){
+            Config::create([
+                'key' => $contact
+            ]);
+        }
     }
 }

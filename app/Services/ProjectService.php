@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Project;
-use App\Transformers\Banners\ProjectsResponse;
+use App\Transformers\Projects\ProjectsResponse;
 use App\Transformers\Projects\ProjectResponse;
 use Illuminate\Support\Facades\File;
 
@@ -12,7 +12,7 @@ class ProjectService
     public function createProject($data)
     {
         if ($data['cover_image']) {
-            $data['image'] = 'storage/' . uploadImage($data['image'], 'ProjectsCovers');
+            $data['cover_image'] = uploadImage($data['cover_image'], 'ProjectsCovers');
         }
 
         $project = Project::create($data);
@@ -26,7 +26,7 @@ class ProjectService
             if (File::exists($project->cover_image)) {
                 File::delete($project->cover_image);
             }
-            $data['image'] = 'storage/' . uploadImage($data['image'], 'ProjectsCovers');
+            $data['cover_image'] = uploadImage($data['cover_image'], 'ProjectsCovers');
         }
 
         $project->update($data);

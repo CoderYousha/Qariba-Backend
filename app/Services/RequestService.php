@@ -32,9 +32,9 @@ class RequestService {
     public function getRequests (){
         $user = Auth::guard('user')->user();
         if($user->role === 'client'){
-            $requests = Request::where($user->id)->paginate(10);
+            $requests = Request::orderBy('created_at', 'desc')->where('user_id', $user->id)->paginate(10);
         }else {
-            $requests = Request::orderBy('desc')->paginate(10);
+            $requests = Request::orderBy('created_at', 'desc')->paginate(10);
         }
 
         return success(RequestsResponse::format($requests), 'الطلبات');

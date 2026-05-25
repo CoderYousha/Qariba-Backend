@@ -12,7 +12,7 @@ class ProjectVideoService
     {
         $data['project_id'] = $project->id;
         if ($data['video']) {
-            $data['video'] = 'storage/' . uploadImage($data['video'], 'ProjectsVideos');
+            $data['video'] = uploadImage($data['video'], 'ProjectsVideos');
 
             $projectVideo = ProjectVideo::create($data);
 

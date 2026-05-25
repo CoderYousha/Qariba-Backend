@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('project_url')->nullable();
             $table->string('cover_image');
 
-            $table->foreign('category_id')->references('id')->on('service_categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

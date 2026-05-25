@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Client;
-use App\Transformers\Banners\ClientsResponse;
+use App\Transformers\Clients\ClientsResponse;
 use App\Transformers\Clients\ClientResponse;
 use Illuminate\Support\Facades\File;
 
@@ -12,7 +12,7 @@ class ClientService
     public function createClient($image)
     {
         if ($image) {
-            $path = 'storage/' . uploadImage($image, 'ClientsImages');
+            $path = uploadImage($image, 'ClientsImages');
 
             $client = Client::create([
                 'image' => $path,
@@ -28,7 +28,7 @@ class ClientService
                 File::delete($client->image);
             }
 
-            $path = 'storage/' . uploadImage($image, 'ClientsImages');
+            $path = uploadImage($image, 'ClientsImages');
 
             $client->update([
                 'image' => $path,

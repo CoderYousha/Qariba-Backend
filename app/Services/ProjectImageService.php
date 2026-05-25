@@ -12,7 +12,7 @@ class ProjectImageService
     {
         $data['project_id'] = $project->id;
         if ($data['image']) {
-            $data['image'] = 'storage/' . uploadImage($data['image'], 'ProjectsImages');
+            $data['image'] = uploadImage($data['image'], 'ProjectsImages');
 
             $projectImage = ProjectImage::create($data);
 
@@ -26,7 +26,7 @@ class ProjectImageService
             if (File::exists($projectImage->image)) {
                 File::delete($projectImage->image);
             }
-            $data['image'] = 'storage/' . uploadImage($data['image'], 'ProjectsImages');
+            $data['image'] = uploadImage($data['image'], 'ProjectsImages');
 
             $projectImage->update($data);
 

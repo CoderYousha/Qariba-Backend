@@ -16,7 +16,7 @@ class CheckClientAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guard('user')->user()->role == 'client') {
+        if (Auth::guard('user')->user() && Auth::guard('user')->user()->role == 'client') {
             return $next($request);
         }
         return error('some thing went wrong', 'Forbidden', 403);

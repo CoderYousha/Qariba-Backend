@@ -26,7 +26,7 @@ class BannerRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'descrription'=> 'required',
+            'description'=> 'required',
             'image' => 'required|image'
         ];
     }
