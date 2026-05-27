@@ -10,6 +10,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectImageController;
 use App\Http\Controllers\ProjectVideoController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -117,4 +118,10 @@ Route::controller(RequestController::class)->middleware('check-auth')->prefix('r
         Route::post('/{request}', 'update');
     });
     Route::delete('/{request}', 'destroy');
+});
+
+Route::controller(UserController::class)->middleware('check-admin')->prefix('users')->group(function (){
+    Route::get('/', 'view');
+    Route::get('/{user}', 'show');
+    Route::delete('/{user}', 'destroy');
 });

@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
     //Get Categories Function
     public function view (Request $request){
-        return $this->categoryService->getCategories($request->service);
+        return $this->categoryService->getCategories($request->service, $request->search);
     }
 
     //Get Category Function
