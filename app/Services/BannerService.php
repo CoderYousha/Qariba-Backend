@@ -21,7 +21,7 @@ class BannerService
 
     public function updateBanner(Banner $banner, $data)
     {
-        if ($data['image']) {
+        if (isset($data['image'])) {
             if (File::exists($banner->image)) {
                 File::delete($banner->image);
             }
@@ -43,9 +43,9 @@ class BannerService
         return success(null, 'تم حذف الإعلان بنجاح');
     }
 
-    public function getBanners()
+    public function getBanners($search)
     {
-        $banners = Banner::orderBy('created_at', 'desc')->paginate(10);
+        $banners = Banner::where('title', 'LIKE', '%' . $search . '%')->orderBy('created_at', 'desc')->paginate(10);
 
         return success(BannersResponse::format($banners), 'عرض الإعلانات');
     }

@@ -27,7 +27,7 @@ class BannerRequest extends FormRequest
         return [
             'title' => 'required',
             'description'=> 'required',
-            'image' => 'required|image'
+            'image' => 'image|nullable'
         ];
     }
 
@@ -36,7 +36,7 @@ class BannerRequest extends FormRequest
         return [
             'title.required' => 'حقل العنوان مطلوب',
             'description.required' => 'حقل الوصف مطلوب',
-            'image.required' => 'الصورة مطلوبة',
+            // 'image.required' => 'الصورة مطلوبة',
             'image.image' => 'الصورة غير صالحة',
         ];
     }
