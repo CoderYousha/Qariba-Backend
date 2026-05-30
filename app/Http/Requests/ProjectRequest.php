@@ -37,9 +37,9 @@ class ProjectRequest extends FormRequest
         return [
             'category_id.required' => 'الصنف مطلوب',
             'category_id.exists' => 'الصنف غير متاح',
-            'title.requried' => 'حقل العنوان مطلوب',
+            'title.required' => 'حقل العنوان مطلوب',
             'description.required' => 'خقل الوصف مطلوب',
-            'cover_image.requried' => 'صورة الغلاف مطلوبة',
+            'cover_image.required' => 'صورة الغلاف مطلوبة',
             'cover_image.image' => 'صورة الغلاف غير صالحة',
         ];
     }

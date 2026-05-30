@@ -22,7 +22,7 @@ class ProjectService
 
     public function updateProject(Project $project, $data)
     {
-        if ($data['cover_image']) {
+        if (isset($data['cover_image'])) {
             if (File::exists($project->cover_image)) {
                 File::delete($project->cover_image);
             }
@@ -57,9 +57,9 @@ class ProjectService
         return success(null, 'تم حذف المشروع بنجاح');
     }
 
-    public function getProjects()
+    public function getProjects($search)
     {
-        $projects = Project::paginate(10);
+        $projects = Project::where('title', 'LIKE', '%' . $search . '%')->orderBy('created_at', 'desc')->paginate(10);
 
         return success(ProjectsResponse::format($projects), 'المشاريع');
     }

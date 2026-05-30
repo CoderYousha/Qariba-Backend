@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Services\ProjectService;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,32 +24,46 @@ class ProjectController extends Controller
     }
 
     //Update Project Function
-    public function update(Project $project, ProjectRequest $projectRequest)
+    public function update(Project $project, Request $request)
     {
+        $projectRequest = new ProjectRequest();
         $rules = $projectRequest->rules();
+        $messages = method_exists($projectRequest, 'messages') ? $projectRequest->messages() : [];
 
         unset($rules['cover_image']);
 
-        Validator::make(
-            $projectRequest->all(),
-            $rules
-        )->validate();
+        $validator = Validator::make(
+            $request->all(),
+            $rules,
+            $messages
+        );
 
-        return $this->projectService->updateProject($project, $projectRequest->all());
+        if ($validator->fails()) {
+            throw new HttpResponseException(
+                response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all()
+                ], 422)
+            );
+        }
+        return $this->projectService->updateProject($project, $request->all());
     }
 
     //Delete Project Function
-    public function destroy (Project $project){
+    public function destroy(Project $project)
+    {
         return $this->projectService->deleteProject($project);
     }
 
     //Get Projects Function
-    public function view (){
-        return $this->projectService->getProjects();
+    public function view(Request $request)
+    {
+        return $this->projectService->getProjects($request->search);
     }
 
     //Get Project Function
-    public function show (Project $project){
+    public function show(Project $project)
+    {
         return $this->projectService->getProject($project);
     }
 }
