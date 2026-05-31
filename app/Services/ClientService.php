@@ -48,7 +48,7 @@ class ClientService
     }
 
     public function getClients (){
-        $clients = Client::all();
+        $clients = Client::orderBy('created_at', 'desc')->get();
 
         return success(ClientsResponse::format($clients), 'عرض الزبائن');
     }

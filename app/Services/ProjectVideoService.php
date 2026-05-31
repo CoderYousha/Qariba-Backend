@@ -26,6 +26,8 @@ class ProjectVideoService
             File::delete($projectVideo->video);
         }
 
+        $projectVideo->delete();
+
         return success(null, 'تم حذف الفيديو بنجاح');
     }
 }

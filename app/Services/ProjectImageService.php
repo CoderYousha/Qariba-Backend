@@ -40,6 +40,8 @@ class ProjectImageService
             File::delete($projectImage->image);
         }
 
+        $projectImage->delete();
+
         return success(null, 'تم حذف الصورة بنجاح');
     }
 }
