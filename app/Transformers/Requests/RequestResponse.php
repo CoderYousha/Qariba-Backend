@@ -2,14 +2,18 @@
 
 namespace App\Transformers\Requests;
 
-class RequestResponse {
-    public static function format ($request) {
+class RequestResponse
+{
+    public static function format($request)
+    {
         $data = [
             'request' => [
                 'id' => $request->id,
-                'image' => $request->description,
+                'description' => $request->description,
                 'user' => $request->user,
-                'category' => $request->category,
+                'sub_category' => $request->sub_category,
+                'category' => $request->sub_category->category,
+                'created_at' => $request->created_at,
             ]
         ];
 

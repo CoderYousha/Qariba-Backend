@@ -31,8 +31,8 @@ class RequestController extends Controller
     }
 
     //Get Requests Function
-    public function view (){
-        return $this->requestService->getRequests();
+    public function view (Request $request){
+        return $this->requestService->getRequests($request->search);
     }
 
     //Get Request Function

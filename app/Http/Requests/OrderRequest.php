@@ -25,7 +25,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'required|exists:sub_categories,id',
             'description' => 'required',
         ];
     }
@@ -33,8 +33,8 @@ class OrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'category_id.required' => 'الصنف مطلوب',
-            'category_id.exists' => 'الصنف غير متاح',
+            'sub_category_id.required' => 'الصنف الفرعي مطلوب',
+            'sub_category_id.exists' => 'الصنف الفرعي غير متاح',
             'description.required' => 'حقل الوصف مطلوب',
         ];
     }

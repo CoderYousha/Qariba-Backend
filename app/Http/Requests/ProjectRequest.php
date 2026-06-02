@@ -25,17 +25,19 @@ class ProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'required|exists:sub_categories,id',
             'title' => 'required',
             'description' => 'required',
             'cover_image' => 'required|image',
+            'client_name' => 'nullable',
+            'project_url' => 'nullable',
         ];
     }
 
     public function messages()
     {
         return [
-            'category_id.required' => 'الصنف مطلوب',
+            'sub_category_id.required' => 'الصنف الفرعي مطلوب',
             'category_id.exists' => 'الصنف غير متاح',
             'title.required' => 'حقل العنوان مطلوب',
             'description.required' => 'خقل الوصف مطلوب',

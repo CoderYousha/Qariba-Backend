@@ -9,16 +9,16 @@ class Request extends Model
 {
     use HasFactory;
 
-    protected $with = ['user', 'category'];
+    protected $with = ['user', 'sub_category'];
     protected $table = 'requests';
     protected $fillable = [
         'user_id',
-        'category_id',
+        'sub_category_id',
         'description',
     ];
 
-    public function category (){
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+    public function sub_category (){
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
     }
 
     public function user (){

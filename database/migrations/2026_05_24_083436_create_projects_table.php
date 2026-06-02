@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('sub_category_id');
             $table->string('title');
             $table->longText('description');
             $table->string('client_name')->nullable();
             $table->string('project_url')->nullable();
             $table->string('cover_image');
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

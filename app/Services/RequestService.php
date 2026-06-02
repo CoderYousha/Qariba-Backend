@@ -29,12 +29,16 @@ class RequestService {
         return success(null, 'تم حذف الطلب بنجاح');
     }
 
-    public function getRequests (){
+    public function getRequests ($search){
         $user = Auth::guard('user')->user();
         if($user->role === 'client'){
             $requests = Request::orderBy('created_at', 'desc')->where('user_id', $user->id)->paginate(10);
         }else {
-            $requests = Request::orderBy('created_at', 'desc')->paginate(10);
+            $requests = Request::orderBy('created_at', 'desc')->where(function ($query) use ($search){
+                $query->where('id', 'LIKE', '%' . $search . '%')->orWhereHas('user', function ($user) use ($search){
+                    $user->where('full_name', 'LIKE', '%' . $search . '%');
+                });
+            })->paginate(10);
         }
 
         return success(RequestsResponse::format($requests), 'الطلبات');

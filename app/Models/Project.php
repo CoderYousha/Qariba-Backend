@@ -9,19 +9,19 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $with = ['images', 'videos', 'category'];
+    protected $with = ['images', 'videos', 'sub_category'];
     protected $table = 'projects';
     protected $fillable = [
-        'category_id',
+        'sub_category_id',
         'title',
         'description',
-        'clinet_name',
+        'client_name',
         'project_url',
         'cover_image',
     ];
 
-    public function category () {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+    public function sub_category () {
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
     }
 
     public function images (){
