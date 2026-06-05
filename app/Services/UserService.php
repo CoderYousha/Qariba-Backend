@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\User;
 use App\Transformers\Users\UserResponse;
 use App\Transformers\Users\UsersResponse;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -23,6 +25,15 @@ class UserService
         return success(UserResponse::format($user), 'تفاصيل حساب الزبون');
     }
 
+    public function updatePassword(User $user, $password)
+    {
+        $user->update([
+            'password' => Hash::make($password),
+        ]);
+
+        return success(null, 'تم تعديل كلمة مرور المستخدم بنجاح');
+    }
+
     public function deleteUser(User $user)
     {
         if (File::exists($user->image)) {
@@ -32,5 +43,14 @@ class UserService
         $user->delete();
 
         return success(null, 'تم حذف الزبون بنجاح');
+    }
+
+    public function exportPdf()
+    {
+        $users = User::whereNot('role', 'admin')->get();
+
+        $pdf = Pdf::loadView('users.users', compact('users'));
+
+        return $pdf->download('users.pdf');
     }
 }

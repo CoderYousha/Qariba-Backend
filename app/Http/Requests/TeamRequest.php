@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Override;
 
-class UpdateProfileRequest extends FormRequest
+class TeamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,9 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'full_name' => 'required',
-            'phone' => 'required|numeric',
-            'image' => 'nullable|image'
+            'description' => 'required',
+            'position' => 'required',
+            'image' => 'required|image'
         ];
     }
 
@@ -35,8 +36,9 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'full_name.required' => 'حقل الاسم مطلوب',
-            'phone.required' => 'حقل رقم الهاتف مطلوب',
-            'phone.numeric' => 'رقم الهاتف غير صالح',
+            'description.required' => 'حقل الوصف مطلوب',
+            'position.required' => 'حقل المنصب مطلوب',
+            'image.required' => 'الصورة مطلوبة',
             'image.image' => 'الصورة غير صالحة',
         ];
     }

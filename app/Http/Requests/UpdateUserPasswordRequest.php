@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Override;
 
-class UpdateProfileRequest extends FormRequest
+class UpdateUserPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +25,16 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'required',
-            'phone' => 'required|numeric',
-            'image' => 'nullable|image'
+            'new_password' => 'required|min:8|confirmed',
         ];
     }
 
     public function messages()
     {
         return [
-            'full_name.required' => 'حقل الاسم مطلوب',
-            'phone.required' => 'حقل رقم الهاتف مطلوب',
-            'phone.numeric' => 'رقم الهاتف غير صالح',
-            'image.image' => 'الصورة غير صالحة',
+            'new_password.required' => 'حقل كلمة المرور مطلوب',
+            'new_password.min' => 'يجب أن تكون كلمة المرور على الأقل 8 محارف',
+            'new_password.confirmed' => 'يجب تأكيد كلمة المرور',
         ];
     }
 

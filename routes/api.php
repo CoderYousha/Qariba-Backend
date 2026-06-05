@@ -6,12 +6,15 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ModelController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectImageController;
 use App\Http\Controllers\ProjectVideoController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -134,5 +137,28 @@ Route::controller(RequestController::class)->middleware('check-auth')->prefix('r
 Route::controller(UserController::class)->middleware('check-admin')->prefix('users')->group(function () {
     Route::get('/', 'view');
     Route::get('/{user}', 'show');
+    Route::post('/{user}', 'update');
     Route::delete('/{user}', 'destroy');
 });
+
+Route::controller(TeamController::class)->prefix('team')->group(function () {
+    Route::get('/', 'view');
+    Route::get('/{member}', 'show');
+    Route::middleware('check-admin')->group(function () {
+        Route::post('/', 'store');
+        Route::post('/{member}', 'update');
+        Route::delete('/{member}', 'destroy');
+    });
+});
+
+Route::controller(ModelController::class)->prefix('models')->group(function () {
+    Route::get('/', 'view');
+    Route::get('/{model}', 'show');
+    Route::middleware('check-admin')->group(function () {
+        Route::post('/', 'store');
+        Route::post('/{model}', 'update');
+        Route::delete('/{model}', 'destroy');
+    });
+});
+
+Route::get('/export', [UserController::class, 'export'])->middleware('check-admin');

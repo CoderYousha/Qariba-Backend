@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Override;
 
-class UpdateProfileRequest extends FormRequest
+class ModelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,17 +25,15 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'full_name' => 'required',
-            'phone' => 'required|numeric',
-            'image' => 'nullable|image'
+            'image' => 'required|image'
         ];
     }
 
     public function messages()
     {
         return [
-            'full_name.required' => 'حقل الاسم مطلوب',
-            'phone.required' => 'حقل رقم الهاتف مطلوب',
-            'phone.numeric' => 'رقم الهاتف غير صالح',
+            'fulll_name.required' => 'حقل الاسم مطلوب',
+            'image.required' => 'الصورة مطلوبة',
             'image.image' => 'الصورة غير صالحة',
         ];
     }

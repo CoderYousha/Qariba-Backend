@@ -2,15 +2,18 @@
 
 namespace App\Services;
 
+use App\Mail\VerificationMessage;
 use App\Models\User;
 use App\Models\Verification;
 use App\Transformers\Authentications\LoginResponse;
 use App\Transformers\Authentications\ProfileResponse;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthenticationService
 {
@@ -44,6 +47,8 @@ class AuthenticationService
 
             return success(null, 'تم تعديل كلمة المرور بنجاح');
         }
+
+        return error('some thing went wrong', 'كلمة المرور المدخلة غير صحيحة');
     }
 
     public function logout()
@@ -56,7 +61,7 @@ class AuthenticationService
     public function updateProfile($data)
     {
         $user = Auth::guard('user')->user();
-        if ($data['image']) {
+        if (isset($data['image'])) {
             if (File::exists($user->image)) {
                 File::delete($user->image);
             }
@@ -80,12 +85,12 @@ class AuthenticationService
             'expiry_date' => Carbon::now()->addMinutes(15),
         ]);
 
-        // try {
-        //     Mail::to($verification->email)->send(new VerificationMessage($verification->code));
-        // } catch (Exception $e) {
-        //     $verification->delete();
-        //     return error('some thing went wrong', 'Cannot send verification code, try arain later....', 422);
-        // }
+        try {
+            Mail::to($verification->email)->send(new VerificationMessage($verification->code));
+        } catch (Exception $e) {
+            $verification->delete();
+            return error('some thing went wrong', 'Cannot send verification code, try arain later....', 422);
+        }
 
         $token = $verification->createToken('verification')->plainTextToken;
 
@@ -121,12 +126,12 @@ class AuthenticationService
             'expiry_date' => Carbon::now()->addMinutes(15),
         ]);
 
-        // try {
-        //     Mail::to($verification->email)->send(new VerificationMessage($verification->code));
-        // } catch (Exception $e) {
-        //     $verification->delete();
-        //     return error('some thing went wrong', 'Cannot send verification code, try arain later....', 422);
-        // }
+        try {
+            Mail::to($verification->email)->send(new VerificationMessage($verification->code));
+        } catch (Exception $e) {
+            $verification->delete();
+            return error('some thing went wrong', 'Cannot send verification code, try arain later....', 422);
+        }
 
         $token = $verification->createToken('verification')->plainTextToken;
 
