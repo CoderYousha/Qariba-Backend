@@ -15,8 +15,9 @@ class RequestsResponse
                 'id' => $request->id,
                 'description' => $request->description,
                 'user' => $request->user,
-                'sub_category' => $request->sub_category,
-                'category' => $request->sub_category->category,
+                'service' => $request->service,
+                'category' => $request->category_id? $request->Category->category : $request->category,
+                'sub_category' => $request->sub_category_id? $request->subCategory->sub_category : $request->sub_category,
                 'created_at' => $request->created_at,
             ];
         }

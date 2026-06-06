@@ -25,7 +25,11 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sub_category_id' => 'required|exists:sub_categories,id',
+            'service' => 'required',
+            'category_id' => 'exists:categories,id|required_without:category',
+            'sub_category_id' => 'exists:sub_categories,id|required_without:sub_category',
+            'category' => 'required_without:category_id',
+            'sub_category' => 'required_without:sub_category_id',
             'description' => 'required',
         ];
     }
@@ -33,8 +37,13 @@ class OrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'sub_category_id.required' => 'الصنف الفرعي مطلوب',
+            'service.required' => 'الخدمة مطلوبة',
+            'category_id.exists' => 'الصنف غير متاح',
+            'category_id.required_without' => 'الصنف مطلوب',
+            'category.required_without' => 'الصنف مطلوب',
             'sub_category_id.exists' => 'الصنف الفرعي غير متاح',
+            'sub_category_id.required_without' => 'الصنف الفرعي مطلوب',
+            'sub_category.required_without' => 'الصنف الفرعي مطلوب',
             'description.required' => 'حقل الوصف مطلوب',
         ];
     }
