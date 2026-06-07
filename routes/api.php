@@ -79,6 +79,7 @@ Route::controller(AboutusController::class)->prefix('aboutus')->group(function (
 
 Route::controller(ContactController::class)->prefix('contacts')->group(function () {
     Route::get('/', 'show');
+    Route::post('/send-email', 'sendEmail');
     Route::middleware('check-admin')->group(function () {
         Route::post('/', 'setContacts');
     });
