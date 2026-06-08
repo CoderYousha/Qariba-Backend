@@ -85,12 +85,12 @@ class AuthenticationService
             'expiry_date' => Carbon::now()->addMinutes(15),
         ]);
 
-        try {
-            Mail::to($verification->email)->send(new VerificationMessage($verification->code));
-        } catch (Exception $e) {
-            $verification->delete();
-            return error('some thing went wrong', 'Cannot send verification code, try arain later....', 422);
-        }
+        // try {
+        //     Mail::to($verification->email)->send(new VerificationMessage($verification->code));
+        // } catch (Exception $e) {
+        //     $verification->delete();
+        //     return error('some thing went wrong', 'Cannot send verification code, try arain later....', 422);
+        // }
 
         $token = $verification->createToken('verification')->plainTextToken;
 

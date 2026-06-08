@@ -10,6 +10,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "react-verification-code-input": "^1.2.9"
+        "react-verification-code-input": "^1.2.9",
+        "react-player": "^3.4.0"
     }
 }

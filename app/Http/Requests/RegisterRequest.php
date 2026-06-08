@@ -36,7 +36,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'full_name.required' => 'حقل الاسم مطلوب',
-            'email.requried' => 'حقل البريد الإلكتروني مطلوب',
+            'email.required' => 'حقل البريد الإلكتروني مطلوب',
             'email.email' => 'البريد الإلكتروني غير صالح',
             'email.unique' => 'البريد الإلكتروني مستخدم مسبقا',
             'phone.required' => 'حقل رقم الهاتف مطلوب',
