@@ -30,6 +30,11 @@ class RequestController extends Controller
         return $this->requestService->deleteRequest($request);
     }
 
+    //Change Request Status Function
+    public function changeStatus (ModelsRequest $modelRequest, Request $request){
+        return $this->requestService->changeStatus($modelRequest, $request->status);
+    }
+
     //Get Requests Function
     public function view (Request $request){
         return $this->requestService->getRequests($request->search);

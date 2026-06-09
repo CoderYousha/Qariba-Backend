@@ -9,7 +9,7 @@ class Request extends Model
 {
     use HasFactory;
 
-    protected $with = ['user', 'subCategory', 'Category'];
+    protected $with = ['user', 'subCategory', 'Category', 'model'];
     protected $table = 'requests';
     protected $fillable = [
         'user_id',
@@ -19,6 +19,7 @@ class Request extends Model
         'category',
         'sub_category',
         'description',
+        'status',
     ];
 
     public function Category (){
@@ -31,5 +32,9 @@ class Request extends Model
 
     public function user (){
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function model (){
+        return $this->belongsTo(Modell::class, 'model_id', 'id');
     }
 }

@@ -17,13 +17,16 @@ return new class extends Migration
             $table->enum('service', ['software_developer', 'digital_marketing', 'photography']);
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('sub_category_id')->nullable();
+            $table->unsignedBigInteger('model_id')->nullable();
             $table->string('category')->nullable();
             $table->string('sub_category')->nullable();
             $table->longText('description');
+            $table->enum('status', ['pending', 'accepted', 'contact_us', 'canceled'])->default('pending');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('cascade');
             $table->timestamps();
         });
     }

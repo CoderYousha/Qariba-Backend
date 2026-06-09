@@ -29,6 +29,14 @@ class RequestService {
         return success(null, 'تم حذف الطلب بنجاح');
     }
 
+    public function changeStatus (Request $request, $status){
+        $request->update([
+            'status' => $status
+        ]);
+
+        return success(null, 'تم تعديل حالة الطلب بنجاح');
+    }
+
     public function getRequests ($search){
         $user = Auth::guard('user')->user();
         if($user->role === 'client'){

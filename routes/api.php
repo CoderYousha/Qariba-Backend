@@ -102,6 +102,7 @@ Route::controller(ProjectController::class)->prefix('projects')->group(function 
         Route::post('/', 'store');
         Route::post('/{project}', 'update');
         Route::delete('/{project}', 'destroy');
+        Route::post('/{project}', 'destroy');
     });
 });
 
@@ -131,6 +132,9 @@ Route::controller(RequestController::class)->middleware('check-auth')->prefix('r
     Route::middleware('check-client')->group(function () {
         Route::post('/', 'store');
         Route::post('/{request}', 'update');
+    });
+    Route::middleware('check-admin')->group(function () {
+        Route::post('/change-status/{modelRequest}', 'changeStatus');
     });
     Route::delete('/{request}', 'destroy');
 });

@@ -28,6 +28,7 @@ class OrderRequest extends FormRequest
             'service' => 'required',
             'category_id' => 'exists:categories,id|required_without:category',
             'sub_category_id' => 'exists:sub_categories,id|required_without:sub_category',
+            'model_id' => 'nullable|exists:models,id',
             'category' => 'required_without:category_id',
             'sub_category' => 'required_without:sub_category_id',
             'description' => 'required',
@@ -44,6 +45,7 @@ class OrderRequest extends FormRequest
             'sub_category_id.exists' => 'الصنف الفرعي غير متاح',
             'sub_category_id.required_without' => 'الصنف الفرعي مطلوب',
             'sub_category.required_without' => 'الصنف الفرعي مطلوب',
+            'model.exists' => 'العارضة غير موجودة',
             'description.required' => 'حقل الوصف مطلوب',
         ];
     }
